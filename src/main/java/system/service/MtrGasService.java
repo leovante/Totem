@@ -7,6 +7,4 @@ import system.model.MtrGasEntity;
 @Repository
 public interface MtrGasService extends CrudRepository<MtrGasEntity, Long>{
 
-
-
 }

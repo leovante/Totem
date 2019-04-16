@@ -1,6 +1,8 @@
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import util.SpringConfiguration;
+import system.service.MtrGasServiceImpl;
+import util.AppConfig;
 
 public class Main {
 /*
@@ -22,9 +24,15 @@ public class Main {
     }
 */
 
-    public static void main(final String[] args) throws Exception {
-        ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 
+    public static void main(final String[] args) throws Exception {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        System.out.println(ctx.getBean(MtrGasServiceImpl.class).findMtrGas());
+
+//        ctx.register(AppConfig.class);
+//        ctx.refresh();
+//        ctx.scan("system");
+//        ctx.refresh();
 
 /*
         final Session session = getSession();
@@ -44,4 +52,5 @@ public class Main {
         }
 */
     }
+
 }
