@@ -1,4 +1,4 @@
-package com.system.service;
+package com.system.repository;
 
 import java.util.List;
 

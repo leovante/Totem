@@ -17,7 +17,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories/*(basePackageClasses = Application.class)*///не работает с JpaRepository
+@EnableJpaRepositories(basePackages = "com.system.repository")
+//@PropertySource("classpath:application.properties")
 public class AppConfig implements TransactionManagementConfigurer {
 
 //    @Value("${datasource.driverClassName}")
@@ -43,7 +44,7 @@ public class AppConfig implements TransactionManagementConfigurer {
         return new HikariDataSource(config);
     }
 
-    @Bean
+    @Bean(name="entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(configureDataSource());
@@ -54,21 +55,14 @@ public class AppConfig implements TransactionManagementConfigurer {
         jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "update");
         jpaProperties.setProperty("hibernate.jdbc.lob.non_contextual_creation", "true"); //www.thomasvitale.com/spring-data-jpa-hibernate-java-configuration
-        jpaProperties.setProperty("spring.main.allow-bean-definition-overriding=true", "true");
+        jpaProperties.setProperty("spring.main.allow-bean-definition-overriding", "true");
 //        jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         return entityManagerFactoryBean;
     }
 
-    @Bean
+    @Bean("transactionManager")
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new JpaTransactionManager();
     }
-
-//    @Bean
-//    public EmbeddedServletContainerFactory servletContainer() {
-//        TomcatEmbeddedServletContainerFactory factory =
-//                new TomcatEmbeddedServletContainerFactory();
-//        return factory;
-//    }
 }

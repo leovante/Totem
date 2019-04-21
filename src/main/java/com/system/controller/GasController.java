@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("message")
-public class MessageController {
+@RequestMapping("/")
+public class GasController {
+
+    private MtrGasServiceImpl mtrGasServiceImpl;
 
     @Autowired
-    private MtrGasServiceImpl mtrGasServiceImpl;
+    public void setMessageController(MtrGasServiceImpl mtrGasServiceImpl) {
+        this.mtrGasServiceImpl = mtrGasServiceImpl;
+    }
 
     @GetMapping
     public String list() {
@@ -24,5 +29,14 @@ public class MessageController {
     @GetMapping("/gas")
     public Optional<MtrGasEntity> findGas() {
         return mtrGasServiceImpl.findMtrGas();
+    }
+    @GetMapping("/gas2")
+    public MtrGasEntity findGas2() {
+        return mtrGasServiceImpl.findMtrGas2();
+    }
+
+    @GetMapping("/gasAll")
+    public List<MtrGasEntity> findAll() {
+        return mtrGasServiceImpl.findAll();
     }
 }
