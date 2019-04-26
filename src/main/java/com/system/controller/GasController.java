@@ -31,7 +31,7 @@ public class GasController {
         return mtrGasServiceImpl.findMtrGas();
     }
     @GetMapping("/gas2")
-    public MtrGasEntity findGas2() {
+    public Optional<MtrGasEntity> findGas2() {
         return mtrGasServiceImpl.findMtrGas2();
     }
 

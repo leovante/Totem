@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface MtrGasService extends JpaRepository<MtrGasEntity, Long> {
+public interface MtrGasRepository extends JpaRepository<MtrGasEntity, Long> {
 
     @Query("SELECT mtrId FROM MtrGasEntity mg WHERE mg.mtrId=(:pType)")
     Optional<MtrGasEntity> getById(@Param("pType") Long id);
