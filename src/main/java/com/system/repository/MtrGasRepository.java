@@ -1,18 +1,13 @@
 package com.system.repository;
 
-import com.system.model.MtrGasEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+import com.system.model.DomainMtrGas;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.Set;
 
-@Repository
-@Transactional
-public interface MtrGasRepository extends JpaRepository<MtrGasEntity, Long> {
+public interface MtrGasRepository <V extends DomainMtrGas> {
+    void persist(V object);
 
-    @Query("SELECT mtrId FROM MtrGasEntity mg WHERE mg.mtrId=(:pType)")
-    Optional<MtrGasEntity> getById(@Param("pType") Long id);
+    void delete(V object);
+
+    Set<String> getRandomData();
 }

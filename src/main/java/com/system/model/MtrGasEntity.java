@@ -1,20 +1,23 @@
 package com.system.model;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@Table(name = "mtr_gas", schema = "public", catalog = "postgres")
-public class MtrGasEntity {
+public class MtrGasEntity implements DomainMtrGas {
     private Long mtrId;
     private Long value;
     private Timestamp date;
     private UUID uuid;
+    private Timestamp dateValue;
 
-    @Id
-    @Column(name = "mtr_id")
+    public MtrGasEntity(Long mtrId, Long value, Timestamp date, UUID uuid, Timestamp dateValue) {
+        this.mtrId = mtrId;
+        this.value = value;
+        this.date = date;
+        this.uuid = uuid;
+        this.dateValue = dateValue;
+    }
+
     public Long getMtrId() {
         return mtrId;
     }
@@ -23,8 +26,6 @@ public class MtrGasEntity {
         this.mtrId = mtrId;
     }
 
-    @Basic
-    @Column(name = "value")
     public Long getValue() {
         return value;
     }
@@ -33,8 +34,6 @@ public class MtrGasEntity {
         this.value = value;
     }
 
-    @Basic
-    @Column(name = "date")
     public Timestamp getDate() {
         return date;
     }
@@ -43,8 +42,6 @@ public class MtrGasEntity {
         this.date = date;
     }
 
-    @Basic
-    @Column(name = "uuid")
     public UUID getUuid() {
         return uuid;
     }
@@ -53,19 +50,11 @@ public class MtrGasEntity {
         this.uuid = uuid;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MtrGasEntity that = (MtrGasEntity) o;
-        return mtrId == that.mtrId &&
-                value == that.value &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(uuid, that.uuid);
+    public Timestamp getDateValue() {
+        return dateValue;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(mtrId, value, date, uuid);
+    public void setDateValue(Timestamp dateValue) {
+        this.dateValue = dateValue;
     }
 }
