@@ -28,9 +28,9 @@ public class MtrGasRepositoryImpl implements MtrGasRepository {
     @Override
     public Set<String> getRandomData() {
         Set<String> result = new HashSet<>();
-        SqlRowSet rowSet = jdbcOperations.queryForRowSet("select mtr_id FROM mtr_gas mg ORDER BY RANDOM() LIMIT 50;");
+        SqlRowSet rowSet = jdbcOperations.queryForRowSet("select gasid FROM mtr_gas mg ORDER BY RANDOM() LIMIT 50;");
         while (rowSet.next()) {
-            result.add(rowSet.getString("mtr_id"));
+            result.add(rowSet.getString("gasid"));
         }
         return result;
     }

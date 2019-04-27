@@ -2,6 +2,7 @@ package com.util;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -18,29 +19,30 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.system.repository")
-//@PropertySource("classpath:application.properties")
 public class AppConfig implements TransactionManagementConfigurer {
 
-//    @Value("${datasource.driverClassName}")
-//    private String driver;
-//    @Value("${dataSource.url}")
-//    private String url;
-//    @Value("${dataSource.username}")
-//    private String username;
-//    @Value("${dataSource.password}")
-//    private String password;
-//    @Value("${hibernate.dialect}")
-//    private String dialect;
-//    @Value("${hibernate.hbm2ddl.auto}")
-//    private String hbm2ddlAuto;
+    @Value("${spring.datasource.driverClassName}")
+    private String driver;
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.dataSource.password}")
+    private String password;
+    @Value("${spring.jpa.database-platform}")
+    private String dialect;
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String hbm2ddlAuto;
+    @Value("${spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation}")
+    private String lobContextCreation;
 
     @Bean
     public DataSource configureDataSource() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/postgres");
-        config.setUsername("postgres");
-        config.setPassword("");
+        config.setDriverClassName(driver);
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
         return new HikariDataSource(config);
     }
 
@@ -52,10 +54,10 @@ public class AppConfig implements TransactionManagementConfigurer {
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-        jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "update");
-        jpaProperties.setProperty("hibernate.jdbc.lob.non_contextual_creation", "true"); //www.thomasvitale.com/spring-data-jpa-hibernate-java-configuration
-        jpaProperties.setProperty("spring.main.allow-bean-definition-overriding", "true");
+        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+        jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
+        jpaProperties.setProperty("hibernate.jdbc.lob.non_contextual_creation", lobContextCreation); //www.thomasvitale.com/spring-data-jpa-hibernate-java-configuration
+//        jpaProperties.setProperty("spring.main.allow-bean-definition-overriding", "true");
 //        jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         return entityManagerFactoryBean;
