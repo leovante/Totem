@@ -1,22 +1,50 @@
 package com.system.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "mtr_gas")
-public class mtr_gas {
+public class mtr_gas implements Serializable {
     private long gasid;
     private long value;
     private Timestamp date;
     private UUID uuid;
     private Timestamp datevalue;
-    private int rfEquipmentid;
+    private BigInteger rfEquipmentid;
+
+    @JsonCreator
+    public mtr_gas(@JsonProperty("gasid") long gasid,
+                   @JsonProperty("value") long value,
+                   @JsonProperty("date") Timestamp date,
+                   @JsonProperty("uuid") UUID uuid,
+                   @JsonProperty("datevalue") Timestamp datevalue,
+                   @JsonProperty("rf_equipmentid") mtr_equipment rf_equipmentid) {
+        this.gasid = gasid;
+        this.value = value;
+        this.date = date;
+        this.uuid = uuid;
+        this.datevalue = datevalue;
+        this.rf_equipmentid = rf_equipmentid;
+    }
+
+    public mtr_gas() {
+    }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gasid", nullable = false)
     public long getGasid() {
         return gasid;
@@ -37,7 +65,9 @@ public class mtr_gas {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @CreationTimestamp
     public Timestamp getDate() {
         return date;
     }
@@ -47,7 +77,14 @@ public class mtr_gas {
     }
 
     @Basic
-    @Column(name = "uuid", nullable = true)
+    @GeneratedValue(
+//            strategy = GenerationType.AUTO,
+            generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+//    @Type(type = "pg-uuid")
+    @Column(name = "uuid", unique = true, nullable = false, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     public UUID getUuid() {
         return uuid;
     }
@@ -57,7 +94,8 @@ public class mtr_gas {
     }
 
     @Basic
-    @Column(name = "datevalue", nullable = true)
+    @Column(name = "datevalue")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     public Timestamp getDatevalue() {
         return datevalue;
     }
@@ -86,12 +124,18 @@ public class mtr_gas {
     private mtr_equipment rf_equipmentid;
 
     @ManyToOne
-    @JoinColumn(name = "rf_equipmentid", referencedColumnName="equipmentid", nullable = false)
+    @JoinColumn(name = "rf_equipmentid", referencedColumnName = "equipmentid", nullable = false)
+    @JsonBackReference
+    @JsonDeserialize
     public mtr_equipment getRf_equipmentid() {
         return rf_equipmentid;
     }
 
     public void setRf_equipmentid(mtr_equipment rf_equipmentid) {
         this.rf_equipmentid = rf_equipmentid;
+    }
+
+    public void setRfEquipmentid(BigInteger rfEquipmentid) {
+        this.rfEquipmentid = rfEquipmentid;
     }
 }

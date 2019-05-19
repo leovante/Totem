@@ -4,6 +4,8 @@ import com.util.AppConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.UUID;
+
 @SpringBootApplication/*(scanBasePackages = {"com.system.model","com.system.service"})*/
 //@EntityScan("com.system.model")
 //@ComponentScan({"com.system.controller"})

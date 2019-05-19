@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Transactional
-public interface MtrGasRepository extends JpaRepository<mtr_gas, Long>, CustomMtrGasRepository {
+public interface MtrGasRepository extends JpaRepository<mtr_gas, BigInteger>, CustomMtrGasRepository {
 
     @Query("SELECT mg FROM mtr_gas mg")
 //    @Query("SELECT new GasEquipDto(mg.value, mg.datevalue) "

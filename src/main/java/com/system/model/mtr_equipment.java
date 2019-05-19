@@ -1,30 +1,38 @@
 package com.system.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "mtr_equipment")
-public class mtr_equipment {
-    private long equipmentid;
+public class mtr_equipment implements Serializable {
+    private BigInteger equipmentid;
     private String name;
     private UUID uuid;
 
+    public mtr_equipment() {
+
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "equipmentid", nullable = false)
-    public long getEquipmentid() {
+    public BigInteger getEquipmentid() {
         return equipmentid;
     }
 
-    public void setEquipmentid(long equipmentid) {
+    public void setEquipmentid(BigInteger equipmentid) {
         this.equipmentid = equipmentid;
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = -1)
+    @Column(name = "name", length = -1)
     public String getName() {
         return name;
     }
@@ -34,7 +42,7 @@ public class mtr_equipment {
     }
 
     @Basic
-    @Column(name = "uuid", nullable = true)
+    @Column(name = "uuid")
     public UUID getUuid() {
         return uuid;
     }
@@ -60,8 +68,8 @@ public class mtr_equipment {
 
     private Set<mtr_gas> mtr_gas2;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rf_equipmentid")
-//    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rf_equipmentid", fetch = FetchType.LAZY)
+    @JsonManagedReference
     public Set<mtr_gas> getMtr_gas() {
         return mtr_gas2;
     }

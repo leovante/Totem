@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,6 @@ public class MtrGasServiceImpl {
 
     @Transactional
     public Optional<mtr_gas> getData() {
-        return mtrGasRepository.findById((long) 18);
+        return mtrGasRepository.findById(BigInteger.valueOf(18));
     }
 }
