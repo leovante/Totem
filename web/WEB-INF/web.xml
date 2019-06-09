@@ -3,14 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <display-name>Test</display-name>
 
-    <!--<servlet>-->
-        <!--<servlet-name>testServlet</servlet-name>-->
-        <!--<servlet-class>com.system.controller.MessageController</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>testServlet</servlet-name>-->
-        <!--<url-pattern>/message</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <welcome-file-list>
+        <welcome-file>/jsp/index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/web/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
 </web-app>

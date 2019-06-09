@@ -1,8 +1,11 @@
 package com.util;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class Ajax {
 
     public static Map<String, Object> successResponse(Object object) {
