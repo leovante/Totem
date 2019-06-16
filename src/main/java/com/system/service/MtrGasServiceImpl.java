@@ -19,4 +19,12 @@ public class MtrGasServiceImpl {
     public Optional<mtr_gas> getData() {
         return mtrGasRepository.findById(BigInteger.valueOf(18));
     }
+
+    @Transactional
+    public mtr_gas saveRfEquipment(Long id) {
+        mtr_gas mtr = new mtr_gas();
+        mtr.setRfEquipmentid(id);
+        mtrGasRepository.save(mtr);
+        return mtr;
+    }
 }

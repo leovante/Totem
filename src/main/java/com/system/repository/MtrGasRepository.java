@@ -15,11 +15,10 @@ import java.util.Optional;
 @Transactional
 public interface MtrGasRepository extends JpaRepository<mtr_gas, BigInteger>, CustomMtrGasRepository {
 
-    @Query("SELECT mg FROM mtr_gas mg")
-//    @Query("SELECT new GasEquipDto(mg.value, mg.datevalue) "
-//            + "FROM mtr_gas mg INNER JOIN mg.rfEquipment me")
+    @Query("SELECT mg FROM mtr_gas mg order by gasid desc ")
     List<mtr_gas> getAll();
 
     @Query("SELECT mg FROM mtr_gas mg WHERE mg.gasid=(:pType)")
     Optional<mtr_gas> getById(@Param("pType") Long id);
+
 }

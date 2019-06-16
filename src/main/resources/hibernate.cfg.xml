@@ -17,6 +17,5 @@
         <property name="max_fetch_depth">1</property>
 
         <mapping class="com.system.model.mtr_gas"/>
-        <mapping class="com.system.model.mtr_equipment"/>
     </session-factory>
 </hibernate-configuration>

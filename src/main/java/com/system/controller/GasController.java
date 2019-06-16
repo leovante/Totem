@@ -17,17 +17,34 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/")
 public class GasController {
-    private final MtrGasRepository mtrGasRepository;
-
-    public GasController(MtrGasRepository mtrGasRepository) {
-        this.mtrGasRepository = mtrGasRepository;
-    }
 
     @Autowired
     private MtrGasServiceImpl mtrGasService;
 
     @Autowired
-    private MtrGasRepository mtrGasRepository1;
+    private MtrGasRepository mtrGasRepository;
+
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public List<mtr_gas> findOrderedByGasidLimitedTo() throws RestException {
+        return mtrGasRepository.findOrderedByGasidLimitedTo(10);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @ResponseBody
+    public mtr_gas putRequest(@RequestParam(name = "equip") Long equip) throws RestException {
+        return mtrGasService.saveRfEquipment(equip);
+    }
+
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @ResponseBody
+    public long getCountGasid() {
+        return mtrGasRepository.count();
+    }
+
+
+
+
+
 
     @RequestMapping(value = "/gasPost", method = RequestMethod.POST)
     public @ResponseBody
@@ -39,17 +56,6 @@ public class GasController {
     public Map<String, Object> getRandomData() throws RestException {
         Optional<mtr_gas> m = mtrGasService.getData();
         return Ajax.successResponse(mtrGasService.getData());
-    }
-
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public List<mtr_gas> getGetList() throws RestException {
-        return mtrGasRepository1.getAll();
-    }
-
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
-    @ResponseBody
-    public mtr_gas putRequest(@RequestBody mtr_gas mgas) throws RestException {
-        return mtrGasRepository.save(mgas);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

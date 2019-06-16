@@ -1,47 +1,20 @@
 package com.system.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "mtr_gas")
-public class mtr_gas implements Serializable {
+public class mtr_gas {
     private long gasid;
-    private long value;
     private Timestamp date;
     private UUID uuid;
-    private Timestamp datevalue;
-    private BigInteger rfEquipmentid;
-
-    @JsonCreator
-    public mtr_gas(@JsonProperty("gasid") long gasid,
-                   @JsonProperty("value") long value,
-                   @JsonProperty("date") Timestamp date,
-                   @JsonProperty("uuid") UUID uuid,
-                   @JsonProperty("datevalue") Timestamp datevalue,
-                   @JsonProperty("rf_equipmentid") mtr_equipment rf_equipmentid) {
-        this.gasid = gasid;
-        this.value = value;
-        this.date = date;
-        this.uuid = uuid;
-        this.datevalue = datevalue;
-        this.rf_equipmentid = rf_equipmentid;
-    }
-
-    public mtr_gas() {
-    }
+    private Long rfEquipmentid;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,17 +28,7 @@ public class mtr_gas implements Serializable {
     }
 
     @Basic
-    @Column(name = "value", nullable = false)
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    @Basic
-    @Column(name = "date")
+    @Column(name = "date", nullable = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @CreationTimestamp
     public Timestamp getDate() {
@@ -84,7 +47,7 @@ public class mtr_gas implements Serializable {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator")
 //    @Type(type = "pg-uuid")
-    @Column(name = "uuid", unique = true, nullable = false, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
+    @Column(name = "uuid", nullable = true)
     public UUID getUuid() {
         return uuid;
     }
@@ -94,14 +57,13 @@ public class mtr_gas implements Serializable {
     }
 
     @Basic
-    @Column(name = "datevalue")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    public Timestamp getDatevalue() {
-        return datevalue;
+    @Column(name = "rf_equipmentid", nullable = true)
+    public Long getRfEquipmentid() {
+        return rfEquipmentid;
     }
 
-    public void setDatevalue(Timestamp datevalue) {
-        this.datevalue = datevalue;
+    public void setRfEquipmentid(Long rfEquipmentid) {
+        this.rfEquipmentid = rfEquipmentid;
     }
 
     @Override
@@ -110,32 +72,13 @@ public class mtr_gas implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         mtr_gas mtr_gas = (mtr_gas) o;
         return gasid == mtr_gas.gasid &&
-                value == mtr_gas.value &&
                 Objects.equals(date, mtr_gas.date) &&
                 Objects.equals(uuid, mtr_gas.uuid) &&
-                Objects.equals(datevalue, mtr_gas.datevalue);
+                Objects.equals(rfEquipmentid, mtr_gas.rfEquipmentid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gasid, value, date, uuid, datevalue);
-    }
-
-    private mtr_equipment rf_equipmentid;
-
-    @ManyToOne
-    @JoinColumn(name = "rf_equipmentid", referencedColumnName = "equipmentid", nullable = false)
-    @JsonBackReference
-    @JsonDeserialize
-    public mtr_equipment getRf_equipmentid() {
-        return rf_equipmentid;
-    }
-
-    public void setRf_equipmentid(mtr_equipment rf_equipmentid) {
-        this.rf_equipmentid = rf_equipmentid;
-    }
-
-    public void setRfEquipmentid(BigInteger rfEquipmentid) {
-        this.rfEquipmentid = rfEquipmentid;
+        return Objects.hash(gasid, date, uuid, rfEquipmentid);
     }
 }
