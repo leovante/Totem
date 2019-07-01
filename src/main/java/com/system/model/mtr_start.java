@@ -4,13 +4,15 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 public class mtr_start {
     private long startid;
-    private Object date;
-    private Object uuid;
+    private Timestamp date;
+    private UUID uuid;
 
     @Id
     @Column(name = "startid", nullable = false)
@@ -24,21 +26,21 @@ public class mtr_start {
 
     @Basic
     @Column(name = "date", nullable = true)
-    public Object getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Object date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
     @Basic
     @Column(name = "uuid", nullable = true)
-    public Object getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(Object uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
