@@ -1,9 +1,10 @@
 package com.system.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class mtr_start {
     private UUID uuid;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "startid", nullable = false)
     public long getStartid() {
         return startid;
@@ -26,6 +28,8 @@ public class mtr_start {
 
     @Basic
     @Column(name = "date", nullable = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @CreationTimestamp
     public Timestamp getDate() {
         return date;
     }
@@ -35,6 +39,13 @@ public class mtr_start {
     }
 
     @Basic
+    @GeneratedValue(
+//            strategy = GenerationType.AUTO,
+            generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+//    @Type(type = "pg-uuid")
     @Column(name = "uuid", nullable = true)
     public UUID getUuid() {
         return uuid;

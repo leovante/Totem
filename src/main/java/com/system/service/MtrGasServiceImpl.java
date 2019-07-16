@@ -27,12 +27,4 @@ public class MtrGasServiceImpl {
         mtrGasRepository.save(mtr);
         return mtr;
     }
-
-    @Transactional
-    public mtr_gas saveStart(Long id) {
-        mtr_gas mtr = new mtr_gas();
-        mtr.setRfEquipmentid(id);
-        mtrGasRepository.save(mtr);
-        return mtr;
-    }
 }

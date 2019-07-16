@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class MtrGasRepositoryImpl implements CustomMtrGasRepository {
+public class CustomMtrGasRepositoryImpl implements CustomMtrGasRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
