@@ -7,7 +7,6 @@ import com.util.Ajax;
 import com.util.RestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -38,10 +37,5 @@ public class GasServlet {
     @GetMapping({"/test"})
     public String test() {
         return "test";
-    }
-
-    @GetMapping({"/", "/index"})
-    public String index() {
-        return "index";
     }
 }

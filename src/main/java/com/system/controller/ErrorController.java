@@ -1,5 +1,7 @@
 package com.system.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServlet;
@@ -12,19 +14,13 @@ import java.util.Arrays;
 import static javax.servlet.RequestDispatcher.*;
 
 @RestController
-public class CustomErrorController extends HttpServlet /*implements ErrorController*/ {
-    private static final String PATH = "/error";
+public class ErrorController extends HttpServlet /*implements ErrorController*/ {
 
-//    @RequestMapping(value = PATH)
-//    public String error() {
-//        return "customError";
-//    }
-//
-//    @Override
-//    public String getErrorPath() {
-//        return PATH;
-//    }
-//
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+        return "error";
+    }
+
     @Override
     protected void doGet(
             HttpServletRequest req,

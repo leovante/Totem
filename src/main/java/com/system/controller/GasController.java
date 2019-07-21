@@ -1,26 +1,17 @@
 package com.system.controller;
 
-import com.system.model.mtr_gas;
-import com.system.model.mtr_start;
 import com.system.repository.MtrGasRepository;
 import com.system.repository.MtrStartRepository;
-import com.system.service.MtrGasServiceImpl;
-import com.system.service.MtrStartServiceImpl;
 import com.util.RestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/")
 public class GasController {
-
-    @Autowired
-    private MtrGasServiceImpl mtrGasService;
-
-    @Autowired
-    private MtrStartServiceImpl mtrStartService;
 
     @Autowired
     private MtrGasRepository mtrGasRepository;
@@ -28,32 +19,14 @@ public class GasController {
     @Autowired
     private MtrStartRepository mtrStartRepository;
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    @ResponseBody
-    public mtr_gas putRequest(@RequestParam(name = "equip") Long equip) throws RestException {
-        return mtrGasService.saveRfEquipment(equip);
-    }
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public String index(Model model) throws RestException {
+        String message = (mtrGasRepository.count() == 0) ?  "0" : String.valueOf(mtrGasRepository.count());
 
-    @RequestMapping(value = "/start", method = RequestMethod.PUT)
-    @ResponseBody
-    public mtr_start putStart() throws RestException {
-        return mtrStartService.saveStart();
-    }
+        String power = (mtrStartRepository.count() == 0) ?  "0" : String.valueOf(mtrStartRepository.count());
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public List<mtr_gas> findOrderedByGasidLimitedTo() throws RestException {
-        return mtrGasRepository.findOrderedByGasidLimitedTo(10);
-    }
-
-    @RequestMapping(value = "/count", method = RequestMethod.GET)
-    @ResponseBody
-    public long getCountGasid() {
-        return mtrGasRepository.count();
-    }
-
-    @RequestMapping(value = "/getStart", method = RequestMethod.GET)
-    @ResponseBody
-    public List<mtr_start> getStart() {
-        return mtrStartRepository.findOrderedByStartidLimitedTo(10);
+        model.addAttribute("message", message);
+        model.addAttribute("power", power);
+        return "index";
     }
 }
