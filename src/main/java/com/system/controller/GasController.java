@@ -21,9 +21,9 @@ public class GasController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) throws RestException {
-        String message = (mtrGasRepository.count() == 0) ?  "0" : String.valueOf(mtrGasRepository.count());
+        String message = (mtrGasRepository.count() == 0) ? "0" : String.valueOf(mtrGasRepository.count() * 10);
 
-        String power = (mtrStartRepository.count() == 0) ?  "0" : String.valueOf(mtrStartRepository.count());
+        String power = (mtrStartRepository.count() == 0) ? "0" : String.valueOf(mtrStartRepository.count());
 
         model.addAttribute("message", message);
         model.addAttribute("power", power);

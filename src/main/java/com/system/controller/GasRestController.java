@@ -36,4 +36,5 @@ public class GasRestController {
     public long getCountGas() {
         return mtrGasRepository.count();
     }
+
 }

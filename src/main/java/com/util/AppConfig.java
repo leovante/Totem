@@ -13,8 +13,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.util.Properties;
+import java.util.TimeZone;
 
 @Configuration
 @EnableTransactionManagement
@@ -66,5 +68,10 @@ public class AppConfig implements TransactionManagementConfigurer {
     @Bean("transactionManager")
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new JpaTransactionManager();
+    }
+
+    @PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Moscow"));
     }
 }

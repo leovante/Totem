@@ -29,7 +29,7 @@ public class mtr_gas {
 
     @Basic
     @Column(name = "date", nullable = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", shape = JsonFormat.Shape.STRING, timezone = "Europe/Moscow")
     @CreationTimestamp
     public Timestamp getDate() {
         return date;
