@@ -2,7 +2,6 @@ package com.system.controller;
 
 import com.system.repository.MtrGasRepository;
 import com.system.repository.MtrStartRepository;
-import com.util.RestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,7 @@ public class GasController {
     private MtrStartRepository mtrStartRepository;
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String index(Model model) throws RestException {
+    public String index(Model model)   {
         String message = (mtrGasRepository.count() == 0) ? "0" : String.valueOf(mtrGasRepository.count() * 10);
 
         String power = (mtrStartRepository.count() == 0) ? "0" : String.valueOf(mtrStartRepository.count());
