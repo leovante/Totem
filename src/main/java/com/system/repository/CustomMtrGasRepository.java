@@ -7,7 +7,9 @@ import java.util.Set;
 
 public interface CustomMtrGasRepository {
 
-    public Set<String> fetchGasAndEquipment();
+    Set<String> fetchGasAndEquipment();
 
     List<mtr_gas> findOrderedByGasidLimitedTo(int limit);
+
+    void getDateTrunc();
 }

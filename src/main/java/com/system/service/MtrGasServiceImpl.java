@@ -27,4 +27,9 @@ public class MtrGasServiceImpl {
         mtrGasRepository.save(mtr);
         return mtr;
     }
+
+    @Transactional
+    public void massiveDate(){
+        mtrGasRepository.getDateTrunc();
+    }
 }

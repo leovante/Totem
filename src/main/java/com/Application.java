@@ -11,7 +11,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 //@EnableJpaRepositories("com.system.service")
 public class Application extends SpringBootServletInitializer {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+//        SpringApplication.run(Application.class, args);
         SpringApplication.run(new Class<?>[]{Application.class, AppConfig.class}, args);
     }
 }

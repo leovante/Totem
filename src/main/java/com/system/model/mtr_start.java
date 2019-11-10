@@ -40,12 +40,10 @@ public class mtr_start {
 
     @Basic
     @GeneratedValue(
-//            strategy = GenerationType.AUTO,
             generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator")
-//    @Type(type = "pg-uuid")
     @Column(name = "uuid", nullable = true)
     public UUID getUuid() {
         return uuid;
