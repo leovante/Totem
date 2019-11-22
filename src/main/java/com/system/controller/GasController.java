@@ -33,6 +33,16 @@ public class GasController {
         model.addAttribute("message", message);
         model.addAttribute("power", power);
         model.addAttribute("data", data);
+//        return "привет";
         return "index";
+    }
+
+    @RequestMapping(value = {"/index2"}, method = RequestMethod.GET)
+    public String index2(Model model)   {
+        String message = (mtrGasRepository.count() == 0) ? "0" : String.valueOf(mtrGasRepository.count() * 10);
+        String power = (mtrStartRepository.count() == 0) ? "0" : String.valueOf(mtrStartRepository.count());
+        model.addAttribute("message", message);
+        model.addAttribute("power", power);
+        return "index2";
     }
 }

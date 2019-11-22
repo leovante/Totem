@@ -74,8 +74,8 @@
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
       <Owner>postgres</Owner>
-      <IntrospectionTimestamp>2019-11-10.21:55:42.298</IntrospectionTimestamp>
-      <IntrospectionStateNumber>563</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2019-11-16.21:38:03.956</IntrospectionTimestamp>
+      <IntrospectionStateNumber>565</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -163,9 +163,9 @@
       <StateNumber>557</StateNumber>
     </table>
     <view id="27" parent="14" name="view_date_trunc">
-      <ObjectId>16435</ObjectId>
+      <ObjectId>16439</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>563</StateNumber>
+      <StateNumber>565</StateNumber>
       <SourceTextLength>238</SourceTextLength>
     </view>
     <routine id="28" parent="14" name="life_mtr_gas_insert">
@@ -426,17 +426,17 @@
     <column id="60" parent="27" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
-      <StateNumber>563</StateNumber>
+      <StateNumber>565</StateNumber>
     </column>
     <column id="61" parent="27" name="date">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
-      <StateNumber>563</StateNumber>
+      <StateNumber>565</StateNumber>
     </column>
     <column id="62" parent="27" name="rashod">
       <Position>3</Position>
       <DataType>bigint|0s</DataType>
-      <StateNumber>563</StateNumber>
+      <StateNumber>565</StateNumber>
     </column>
     <argument id="63" parent="28">
       <ArgumentDirection>R</ArgumentDirection>
